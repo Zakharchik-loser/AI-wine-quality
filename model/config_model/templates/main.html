@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Wine Quality Predictor 🍷</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #faf6f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .banner {
+            background-image: url("/static/images/img.png");
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #7b1fa2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6a1b9a;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">AI Wine Quality Predictor 🍷</div>
+    <center><h1>Welcome!Here,you can witness a simple and great AI model realization</h1></center>
+    <center><h2>Everything important will be described on the site,so,start your experience right now! </h2></center>
+    <center><h3>Now choose what you wanna see here down bellow⬇️</h3></center>
+
+    <div class="container">
+        <form method="POST" action="">
+            {% csrf_token %}
+           <h4>1.Predict the values with a model(with a detailed explanation),click <a href="{% url 'prediction' %}">here</a></h4>
+            <h4>2.See the RAG(Retrieval-Augmented Generation) explanation about the wines,click <a href="{% url 'rag' %}">here</a></h4>
+        </form>
+    </div>
+<footer class="footer" style="background-color:#faf6f2; padding:20px 0; text-align:center;">
+    <div class="container">
+        <div class="footer-logo">
+            <h2>AI Wine Quality</h2>
+        </div>
+
+        <div class="footer-social" style="margin: 10px 0;">
+            <a href="https://www.facebook.com/share/1AAZfFH4vM/" target="_blank" style="margin:0 2px; text-decoration:none; color:#3b5998; font-size:1.5em;">Facebook</a>
+            <a href="https://x.com/Kompotikop?t=dlbzI8RH-l4ukTWjqhZaPA&s=09" target="_blank" style="margin:0 2px; text-decoration:none; color:#1DA1F2; font-size:1.5em;">Twitter</a>
+            <a href="https://www.instagram.com/nothing_there120?igsh=MXh3dnZ5YnZ1NGNpag==" target="_blank" style="margin:0 2px; text-decoration:none; color:#C13584; font-size:1.5em;">Instagram</a>
+        </div>
+
+        <p style="margin-top:10px; color:#333;">&copy; 2025 All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

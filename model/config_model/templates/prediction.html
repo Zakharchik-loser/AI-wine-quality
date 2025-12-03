@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Wine Quality Predictor 🍷</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #faf6f2;
+            margin: 0;
+            padding: 0 40px 40px 40px;
+        }
+
+        .banner {
+            background-image: url("/static/images/img.png");
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #7b1fa2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6a1b9a;
+        }
+
+        h2, h3, h4 {
+            text-align: left;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+
+        .shap-box, .plot-box {
+            border: 1px solid #ccc;
+            background-color: #f9f7f6;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+        }
+
+        .plot-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">AI Wine Quality Predictor 🍷</div>
+    <h1>Here you can predict what u want(Try to!)</h1>
+    <div class="container">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label>Fixed Acidity:</label>
+            <input type="number" step="0.01" name="fixed_acidity" required>
+
+            <label>Volatile Acidity:</label>
+            <input type="number" step="0.01" name="volatile_acidity" required>
+
+            <label>Alcohol:</label>
+            <input type="number" step="0.1" name="alcohol" required>
+
+            <label>pH:</label>
+            <input type="number" step="0.01" name="pH" required>
+
+            <button type="submit">Predict Quality</button>
+        </form>
+
+        {% if prediction %}
+        <h2>Predicted quality: {{ prediction }}</h2>
+        {% endif %}
+
+        {% if shap %}
+        <div class="shap-box">
+            <h3>Here's how the model arrived at this value:</h3>
+            <p>{{ shap }}</p>
+        </div>
+        {% endif %}
+
+        {% if plot %}
+        <div class="plot-box">
+            <h4>Here's how it looks on graph:</h4>
+            <img src="data:image/png;base64,{{ plot }}">
+        </div>
+        {% endif %}
+        <h4>The graph shows a comparison of the actual wine quality values (blue line) and the model’s predicted values (orange line), sorted in ascending order of actual quality. This type of visualization allows you to visually assess how well the model reproduces the structure of the data and whether it is able to recognize patterns.</h4>
+        <h4>Note:Although the model was trained on a wide range of features, we selected the most informative parameters that have the greatest impact on wine quality for real-time prediction. This helps simplify the interaction and reduce the user burden without sacrificing the quality of the prediction.</h4>
+    </div>
+
+<footer class="footer" style="background-color:#faf6f2; padding:20px 0; text-align:center;">
+    <div class="container">
+        <div class="footer-logo">
+            <h2>AI Wine Quality</h2>
+        </div>
+
+        <div class="footer-social" style="margin: 10px 0;">
+            <a href="https://www.facebook.com/share/1AAZfFH4vM/" target="_blank" style="margin:0 2px; text-decoration:none; color:#3b5998; font-size:1.5em;">Facebook</a>
+            <a href="https://x.com/Kompotikop?t=dlbzI8RH-l4ukTWjqhZaPA&s=09" target="_blank" style="margin:0 2px; text-decoration:none; color:#1DA1F2; font-size:1.5em;">Twitter</a>
+            <a href="https://www.instagram.com/nothing_there120?igsh=MXh3dnZ5YnZ1NGNpag==" target="_blank" style="margin:0 2px; text-decoration:none; color:#C13584; font-size:1.5em;">Instagram</a>
+        </div>
+
+        <p style="margin-top:10px; color:#333;">&copy; 2025 All rights reserved.</p>
+    </div>
+</footer>
+<center><a href="{% url 'main' %}">Back to menu</a></center>
+</body>
+</html>

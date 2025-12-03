@@ -1,0 +1,80 @@
+{% load static %}
+{% load socialaccount %}
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+.google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: 100%;
+    padding: 12px;
+
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 16px;
+    color: #3c4043;
+}
+.google-login img {
+    width: 20px;
+    height: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="form" method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <h2>Create account</h2>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Введіть ім’я" required />
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password1">Password</label>
+        <input type="password" name="password1" id="password1" placeholder="********" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password2">Confirm password</label>
+        <input type="password" name="password2" id="password2" placeholder="********" required />
+      </div>
+
+      <button type="submit" class="btn">Register</button>
+
+      <p class="login-link">
+        Already have account? <a href="{% url 'login' %}">Login</a>
+      </p>
+      <p>Or</p>
+    </form>
+         <a href="{% provider_login_url 'google' %}" class="google-login">
+    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo">
+    Login with google
+</a>
+  </div>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Wine Quality Predictor 🍷</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #faf6f2;
+            margin: 0;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .banner {
+            background-image: url("/static/images/img.png");
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            font-size: 2em;
+            font-weight: bold;
+            padding-left: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #7b1fa2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6a1b9a;
+        }
+
+        h1, h2, h3, h4 {
+            margin-left: 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">AI Wine Quality Predictor 🍷</div>
+    <h1>Here u can try to use RAG that will think about your request on some wine dataset, just like the real LLM!</h1>
+    <div class="container">
+       <form method="post">
+    {% csrf_token %}
+    <input type="text" name="query" placeholder="Enter the request" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if error %}
+<p style="color:red">{{ error }}</p>
+{% endif %}
+
+{% if results %}
+<h3>Search results:</h3>
+<ul>
+    {% for r in results %}
+        <li>
+            <p>{{ r.text }}</p>
+            {% if r.price %}
+                <p>Price: {{ r.price }}</p>
+            {% endif %}
+            {% if r.wine_type %}
+                <p>Wine type : {{ r.wine_type }}</p>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
+         {% if ai_answer %}
+        <div class="ai-box">
+            <h3>AI explanation:</h3>
+            <p>{{ ai_answer }} </p>
+        </div>
+        {% endif %}
+<h3>Why the RAG results may seem unexpected</h3>
+        <h4>Our AI uses Retrieval-Augmented Generation (RAG), which combines a vector database with language modeling. When you enter a query, the system searches for documents that are semantically similar to your query in terms of meaning, not necessarily in exact keywords or numeric values.
+
+This means that even if you ask, for example, “Which wine has the highest price?”, the system may return several wines that are contextually relevant to your query, but not strictly the most expensive one. The results are ranked by vector similarity, which captures semantic closeness rather than explicit numeric comparison</h4>
+        <br><br><br>
+
+<footer class="footer" style="background-color:#faf6f2; padding:20px 0; text-align:center;">
+    <div class="container">
+        <div class="footer-logo">
+            <h2>AI Wine Quality</h2>
+        </div>
+
+        <div class="footer-social" style="margin: 10px 0;">
+            <a href="https://www.facebook.com/share/1AAZfFH4vM/" target="_blank" style="margin:0 2px; text-decoration:none; color:#3b5998; font-size:1.5em;">Facebook</a>
+            <a href="https://x.com/Kompotikop?t=dlbzI8RH-l4ukTWjqhZaPA&s=09" target="_blank" style="margin:0 2px; text-decoration:none; color:#1DA1F2; font-size:1.5em;">Twitter</a>
+            <a href="https://www.instagram.com/nothing_there120?igsh=MXh3dnZ5YnZ1NGNpag==" target="_blank" style="margin:0 2px; text-decoration:none; color:#C13584; font-size:1.5em;">Instagram</a>
+        </div>
+
+        <p style="margin-top:10px; color:#333;">&copy; 2025 All rights reserved.</p>
+    </div>
+</footer>
+</div>
+<center><a href="{% url 'main' %}">Back to menu</a></center>
+</body>
+</html>
+

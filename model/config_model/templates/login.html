@@ -1,0 +1,61 @@
+{% load static %}
+{% load socialaccount %}
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+    .google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    width: 100%;
+    padding: 12px;
+
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 16px;
+    color: #3c4043;
+}
+.google-login img {
+    width: 20px;
+    height: 20px;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="form" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <h2>Login into account</h2>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Ваше ім’я" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="********" required>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+
+      <p class="login-link">
+        Don't have an account? <a href="{% url 'register' %}">Register</a>
+      </p>
+      <p>Or</p>
+       </form>
+         <a href="{% provider_login_url 'google' %}" class="google-login">
+    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo">
+    Login with google
+</a>
+  </div>
+</body>
+</html>
